@@ -1,0 +1,2810 @@
+/* W3 Energy — Whitepaper V2 */
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Brand tokens */
+:root {
+  --brand-prim: #13493f;
+  --brand-prim-hover: #0f3a32;
+  --brand-sec: #41a290;
+  --brand-sec-hover: #359985;
+
+  --text-prim: #111827;
+  --text-sec: #374151;
+  --text-muted: #6B7280;
+  --text-light: #9CA3AF;
+
+  --bg: #fff;
+  --bg-light: #F9FAFB;
+  --border: #E5E7EB;
+  --code-bg: #F3F4F6;
+
+  --ff-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ff-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --fz-xs: .75rem;
+  --fz-sm: .875rem;
+  --fz-base: 1rem;
+  --fz-h6: 1rem;
+  --fz-h5: 1.125rem;
+  --fz-h4: 1.25rem;
+  --fz-h3: 1.5rem;
+  --fz-h2: 1.875rem;
+  --fz-h1: 2.25rem;
+
+  --fw-300: 300;
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-600: 600;
+  --fw-700: 700;
+  --lh-tight: 1.2;
+  --lh-snug: 1.3;
+  --lh-normal: 1.4;
+  --lh-relaxed: 1.6;
+  --lh-loose: 1.7;
+
+  --doc-max: 880px;
+  --sidebar-w: 270px;
+
+  /* Map to Docusaurus */
+  --ifm-font-family-base: var(--ff-base);
+  --ifm-font-family-monospace: var(--ff-mono);
+  --ifm-color-primary: var(--brand-prim);
+  --ifm-color-primary-dark: var(--brand-prim-hover);
+  --ifm-color-primary-light: var(--brand-sec);
+  --ifm-code-font-size: .92rem;
+  --ifm-base-font-size: 16px;
+}
+
+html[data-theme='dark'] {
+  --bg: #000000;
+  --bg-light: #000000;
+  --border: rgba(255, 255, 255, .14);
+  --code-bg: #1a1a1a;
+  --text-prim: #e8eef0;
+  --text-sec: #c2cfd0;
+  --text-muted: #9fb1b0;
+}
+
+/* App scope + layout */
+html {
+  scroll-behavior: smooth
+}
+
+:target {
+  scroll-margin-top: 84px
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-prim)
+}
+
+.main-wrapper .container {
+  max-width: var(--doc-max)
+}
+
+.breadcrumbs,
+.pagination-nav {
+  display: none !important
+}
+
+.theme-doc-sidebar-container {
+  width: var(--sidebar-w);
+  border-right: none !important;
+  scrollbar-width: none
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar {
+  width: 0;
+  height: 0
+}
+
+/* Override Docusaurus sidebar background variables */
+:root {
+  --ifm-background-surface-color: #ebeae7;
+}
+
+html[data-theme='dark'] {
+  --ifm-background-surface-color: #2a2a2a;
+}
+
+/* Sidebar background colors - maximum specificity */
+html body .theme-doc-sidebar-container,
+html body .theme-doc-sidebar-container>div,
+html body .theme-doc-sidebar-container .menu,
+html body .theme-doc-sidebar-menu,
+html body aside[class*="sidebar"],
+html body div[class*="docSidebar"],
+html body .navbar-sidebar,
+html body .navbar-sidebar__backdrop {
+  background: #ebeae7 !important;
+  background-color: #ebeae7 !important;
+}
+
+html[data-theme='dark'] body .theme-doc-sidebar-container,
+html[data-theme='dark'] body .theme-doc-sidebar-container>div,
+html[data-theme='dark'] body .theme-doc-sidebar-container .menu,
+html[data-theme='dark'] body .theme-doc-sidebar-menu,
+html[data-theme='dark'] body aside[class*="sidebar"],
+html[data-theme='dark'] body div[class*="docSidebar"],
+html[data-theme='dark'] body .navbar-sidebar,
+html[data-theme='dark'] body .navbar-sidebar__backdrop {
+  background: #2a2a2a !important;
+  background-color: #2a2a2a !important;
+}
+
+/* Force consistent black background in dark mode - excluding sidebar */
+html[data-theme='dark'] .main-wrapper:not(.theme-doc-sidebar-container),
+html[data-theme='dark'] .theme-doc-wrapper:not(.theme-doc-sidebar-container),
+html[data-theme='dark'] .docMainContainer:not(.theme-doc-sidebar-container),
+html[data-theme='dark'] .container:not(.theme-doc-sidebar-container),
+html[data-theme='dark'] .col:not(.theme-doc-sidebar-container) {
+  background: #000000 !important;
+}
+
+/* Navbar */
+.navbar {
+  box-shadow: none;
+  background: #f8faf9;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+
+html[data-theme='dark'] .navbar {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.navbar__brand,
+.navbar__title {
+  font-weight: var(--fw-600);
+  color: var(--brand-prim);
+}
+
+html[data-theme='dark'] .navbar__brand,
+html[data-theme='dark'] .navbar__title {
+  color: var(--brand-sec);
+}
+
+/* Navbar links */
+.navbar__link {
+  color: var(--text-prim);
+  font-weight: var(--fw-500);
+}
+
+.navbar__link:hover {
+  color: var(--brand-sec);
+}
+
+html[data-theme='dark'] .navbar__link {
+  color: var(--text-prim);
+}
+
+html[data-theme='dark'] .navbar__link:hover {
+  color: var(--brand-sec);
+}
+
+/* Sidebar (collapsible look) */
+.menu__list-item>.menu__link {
+  font-size: .95rem;
+  color: var(--text-sec);
+  padding: .36rem .5rem;
+  border-radius: 8px
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background: color-mix(in srgb, var(--brand-sec) 18%, transparent);
+  color: var(--brand-prim)
+}
+
+.menu__link:hover {
+  color: var(--brand-sec)
+}
+
+.theme-doc-sidebar-item-category>.menu__list-item-collapsible>.menu__link {
+  font-weight: var(--fw-600);
+  color: var(--text-prim)
+}
+
+.theme-doc-sidebar-menu .menu__list .menu__list {
+  margin-left: .35rem
+}
+
+.menu__caret {
+  transform: scale(.9);
+  opacity: .75
+}
+
+/* Typography */
+.markdown {
+  font-family: var(--ff-base);
+  font-size: var(--fz-base);
+  line-height: var(--lh-loose);
+  letter-spacing: .005em;
+  color: var(--text-prim)
+}
+
+.markdown h1 {
+  font-size: var(--fz-h1);
+  line-height: var(--lh-tight);
+  font-weight: var(--fw-700);
+  margin: 3rem 0 1.5rem
+}
+
+.markdown h2 {
+  font-size: var(--fz-h2);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-600);
+  margin: 2rem 0 1rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--border)
+}
+
+.markdown h3 {
+  font-size: var(--fz-h3);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-600);
+  margin: 1.5rem 0 .75rem
+}
+
+.markdown h4 {
+  font-size: var(--fz-h4);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-600);
+  margin: 1rem 0 .5rem
+}
+
+.markdown p {
+  line-height: var(--lh-relaxed);
+  margin: 0 0 1rem
+}
+
+.markdown small {
+  font-size: var(--fz-sm);
+  color: var(--text-muted)
+}
+
+/* Links */
+.markdown a {
+  color: var(--brand-prim);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
+  font-weight: var(--fw-500);
+}
+
+.markdown a:hover {
+  color: var(--brand-sec);
+  border-bottom-color: var(--brand-sec);
+}
+
+/* Dark mode links - Better contrast */
+html[data-theme='dark'] .markdown a {
+  color: #60d394;
+  font-weight: var(--fw-500);
+}
+
+html[data-theme='dark'] .markdown a:hover {
+  color: #7ee3a8;
+  border-bottom-color: #7ee3a8;
+}
+
+/* General link styling for better contrast */
+a {
+  color: var(--brand-prim);
+  text-decoration: none;
+  transition: color .15s ease;
+}
+
+a:hover {
+  color: var(--brand-sec);
+}
+
+html[data-theme='dark'] a {
+  color: #60d394;
+}
+
+html[data-theme='dark'] a:hover {
+  color: #7ee3a8;
+}
+
+/* Navbar links - specific styling */
+html[data-theme='dark'] .navbar__link {
+  color: #e8eef0 !important;
+}
+
+html[data-theme='dark'] .navbar__link:hover {
+  color: #60d394 !important;
+}
+
+/* Code */
+code {
+  font-family: var(--ff-mono);
+  background: var(--code-bg);
+  border-radius: 4px;
+  padding: 2px 6px
+}
+
+.theme-code-block,
+pre code {
+  background: var(--code-bg) !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important
+}
+
+/* Blockquote */
+.markdown blockquote {
+  border-left: 4px solid var(--brand-prim);
+  margin: 1rem 0;
+  padding: 0 0 0 1rem;
+  color: var(--text-sec);
+  font-style: italic;
+  background: color-mix(in srgb, var(--brand-sec) 4%, transparent)
+}
+
+/* Tables */
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: .98rem
+}
+
+.markdown thead th {
+  background: var(--bg-light);
+  font-weight: var(--fw-600)
+}
+
+.markdown th,
+.markdown td {
+  border-bottom: 1px solid var(--border);
+  padding: .6rem .5rem;
+  text-align: left
+}
+
+/* HR */
+.markdown hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3rem 0
+}
+
+/* Mobile scale */
+@media (max-width:768px) {
+  html {
+    font-size: 14px
+  }
+
+  .main-wrapper .container {
+    max-width: 100%;
+    padding: 0 1.05rem
+  }
+
+  .markdown h1 {
+    font-size: 1.875rem
+  }
+
+  .markdown h2 {
+    font-size: 1.5rem
+  }
+
+  .markdown h3 {
+    font-size: 1.25rem
+  }
+}
+
+/* Mobile sidebar - show sidebar but keep background visible */
+@media (max-width: 996px) {
+
+  /* Target all possible background elements and make them transparent */
+  .navbar-sidebar__backdrop,
+  .navbar-sidebar__backdrop--show,
+  [class*="backdrop"],
+  [class*="overlay"] {
+    display: none !important;
+    background: none !important;
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    pointer-events: none !important;
+  }
+
+  /* Force sidebar container to be narrow and positioned */
+  .navbar-sidebar,
+  .navbar-sidebar--show {
+    width: 280px !important;
+    max-width: 70vw !important;
+    background-color: #ebeae7 !important;
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: 100vh !important;
+    z-index: 1000 !important;
+    transform: none !important;
+  }
+
+  html[data-theme='dark'] .navbar-sidebar,
+  html[data-theme='dark'] .navbar-sidebar--show {
+    background-color: #2a2a2a !important;
+  }
+
+  /* Ensure sidebar content fits within the narrow width */
+  .navbar-sidebar__brand,
+  .navbar-sidebar__items {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 1rem !important;
+  }
+
+  /* Prevent body scroll lock when sidebar is open */
+  body.navbar-sidebar--show {
+    overflow: auto !important;
+  }
+
+  /* Make sure main content stays visible */
+  .main-wrapper,
+  .docMainContainer {
+    position: relative !important;
+    z-index: 1 !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* ===========================
+   Bench-inspired refinements
+   (safe, scoped, brand-aligned)
+   =========================== */
+
+/* 1) Text selection (subtle brand highlight) */
+::selection {
+  background: #13493f;
+  color: #fff;
+}
+
+::-moz-selection {
+  background: #13493f;
+  color: #fff;
+}
+
+/* 2) Footnotes (MDX native footnotes look clean) */
+.markdown .footnotes {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.markdown .footnotes h2 {
+  margin: 0 0 1rem;
+  font-size: 1.75rem;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+}
+
+.markdown .footnotes ol {
+  padding-left: 1.25rem;
+}
+
+.markdown .footnotes li {
+  margin: 0.25rem 0;
+  color: var(--text-sec);
+}
+
+.markdown .footnotes a {
+  text-decoration: underline;
+}
+
+/* 3) Table wrappers for wide content (like benchmark) */
+.table-wrapper {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 1.25rem 0;
+}
+
+.table {
+  font-size: 1.125rem;
+  /* 18px—adjust if too big */
+  margin: 2rem 0;
+  background: #f6f6f6;
+  border-collapse: collapse;
+  border-style: hidden;
+  width: 100%;
+  display: block !important;
+  overflow-x: auto;
+}
+
+.table th {
+  padding: 1rem;
+  font-weight: 700;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #f6f6f6;
+  text-align: left;
+}
+
+.table td {
+  min-width: 12rem;
+  /* 192px */
+  padding: 0.75rem 1rem;
+  border: 1px solid #f6f6f6;
+}
+
+.table td:nth-child(3) {
+  min-width: 24rem;
+  max-width: 32rem;
+}
+
+/* 384–512px */
+.table a {
+  text-decoration: underline;
+}
+
+.table a:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+/* 4) Generic tables in markdown (non .table) still look consistent */
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+}
+
+.markdown thead th {
+  background: var(--bg-light);
+  font-weight: 600;
+}
+
+.markdown th,
+.markdown td {
+  border-bottom: 1px solid var(--border);
+  padding: .6rem .5rem;
+}
+
+/* 5) Section rhythm (whitepaper feel) */
+.markdown h2+h2 {
+  margin-top: 2.75rem;
+}
+
+/* space between consecutive h2s */
+.markdown h2+hr {
+  margin-top: 3.75rem;
+}
+
+/* match benchmark vibe */
+.markdown h2+p {
+  margin-top: 1rem;
+}
+
+/* gentle intro paragraph spacing */
+
+/* 6) Scroll offset for anchored headings (match sticky navbar height) */
+.markdown h2[id],
+.markdown h3[id],
+.markdown h4[id] {
+  scroll-margin-top: 84px;
+}
+
+/* 7) Optional: visual footnote backrefs a bit lighter */
+.markdown .footnotes a[rev="footnote"] {
+  color: var(--text-muted);
+}
+
+/* 8) (Optional) tighten long lists a touch—comment out if you dislike */
+.markdown ul,
+.markdown ol {
+  margin-bottom: 1rem;
+}
+
+.markdown li {
+  margin: 0.25rem 0;
+}
+
+/* --- Softer whitepaper typography --- */
+.markdown h1 {
+  font-size: 2rem;
+  /* was 2.25rem */
+  line-height: 1.25;
+  font-weight: 600;
+  /* was 700 */
+  margin: 2.25rem 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 1024px) {
+  .markdown h1 {
+    font-size: 2.125rem;
+  }
+
+  /* ~34px -> 34px-ish */
+}
+
+.markdown h2 {
+  font-size: 1.5rem;
+  /* was 1.875rem */
+  line-height: 1.35;
+  font-weight: 600;
+  /* keep semi-bold but feels lighter next to smaller size */
+  margin: 1.75rem 0 .85rem;
+  padding-bottom: .4rem;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: -0.005em;
+}
+
+@media (min-width: 1024px) {
+  .markdown h2 {
+    font-size: 1.625rem;
+  }
+}
+
+.markdown h3 {
+  font-size: 1.25rem;
+  /* was 1.5rem */
+  line-height: 1.4;
+  font-weight: 500;
+  /* lighter */
+  margin: 1.25rem 0 .6rem;
+}
+
+.markdown p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+/* Sidebar labels feel lighter */
+.menu__list-item>.menu__link {
+  font-size: .93rem;
+  color: var(--text-sec);
+}
+
+/* --- Whitepaper-Style Typographic Scale (smaller + calmer) --- */
+.markdown h1 {
+  font-size: 1.625rem;
+  /* ~26px */
+  line-height: 1.3;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.markdown h2 {
+  font-size: 1.25rem;
+  /* ~20px */
+  line-height: 1.35;
+  font-weight: 500;
+  margin: 1.25rem 0 0.6rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3rem;
+}
+
+.markdown h3 {
+  font-size: 1.05rem;
+  /* ~17px */
+  line-height: 1.4;
+  font-weight: 500;
+  margin: 1rem 0 0.5rem;
+}
+
+.markdown h4 {
+  font-size: 0.95rem;
+  /* ~15px */
+  line-height: 1.4;
+  font-weight: 500;
+  margin: 0.75rem 0 0.4rem;
+}
+
+.markdown p {
+  font-size: 0.9rem;
+  /* ~14.5px */
+  line-height: 1.65;
+  margin-bottom: 0.9rem;
+  color: var(--text-primary);
+}
+
+/* Sidebar navigation even lighter */
+.menu__list-item>.menu__link {
+  font-size: 0.85rem;
+  /* ~14px */
+  font-weight: 400;
+  color: var(--text-sec);
+}
+
+/* ===========================
+   CHART & GRAPH STYLING FOR LIGHT AND DARK MODES
+   Professional color schemes optimized for readability
+   =========================== */
+
+/* LIGHT MODE - Clean white background with dark text */
+.chart-container,
+.chart-wrapper,
+.graph-container,
+.mermaid {
+  background: #ffffff !important;
+  border: 2px solid var(--brand-prim) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  margin: 16px 0 !important;
+  box-shadow: 0 4px 12px rgba(19, 73, 63, 0.15) !important;
+}
+
+/* DARK MODE - Dark background with light text */
+html[data-theme='dark'] .chart-container,
+html[data-theme='dark'] .chart-wrapper,
+html[data-theme='dark'] .graph-container,
+html[data-theme='dark'] .mermaid {
+  background: #1a1a1a !important;
+  border: 2px solid var(--brand-sec) !important;
+  box-shadow: 0 4px 12px rgba(65, 162, 144, 0.3) !important;
+}
+
+/* CHART TEXT STYLING - Optimized for both light and dark modes */
+
+/* LIGHT MODE - Dark text on light backgrounds */
+.chart-container text,
+.chart-wrapper text,
+.graph-container text,
+.chart text,
+.graph text,
+.mermaid svg text,
+.mermaid .label,
+.mermaid .pieTitleText,
+.mermaid .pieLabels text,
+.mermaid .tick text,
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .taskText,
+svg text,
+.tick text,
+.axis text,
+.legend text,
+.label text {
+  fill: #1f2937 !important;
+  color: #1f2937 !important;
+  font-family: var(--ff-base) !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+/* DARK MODE - Light text on dark backgrounds */
+html[data-theme='dark'] .chart-container text,
+html[data-theme='dark'] .chart-wrapper text,
+html[data-theme='dark'] .graph-container text,
+html[data-theme='dark'] .chart text,
+html[data-theme='dark'] .graph text,
+html[data-theme='dark'] .mermaid svg text,
+html[data-theme='dark'] .mermaid .label,
+html[data-theme='dark'] .mermaid .pieTitleText,
+html[data-theme='dark'] .mermaid .pieLabels text,
+html[data-theme='dark'] .mermaid .tick text,
+html[data-theme='dark'] .mermaid .nodeLabel,
+html[data-theme='dark'] .mermaid .edgeLabel,
+html[data-theme='dark'] .mermaid .taskText,
+html[data-theme='dark'] svg text,
+html[data-theme='dark'] .tick text,
+html[data-theme='dark'] .axis text,
+html[data-theme='dark'] .legend text,
+html[data-theme='dark'] .label text {
+  fill: #f9fafb !important;
+  color: #f9fafb !important;
+  font-family: var(--ff-base) !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+/* Chart titles - Optimized for readability */
+.mermaid .titleText,
+.mermaid .pieTitleText,
+.chart-title,
+.graph-title,
+.title text,
+.subtitle text {
+  fill: #111827 !important;
+  color: #111827 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  font-family: var(--ff-base) !important;
+}
+
+html[data-theme='dark'] .mermaid .titleText,
+html[data-theme='dark'] .mermaid .pieTitleText,
+html[data-theme='dark'] .chart-title,
+html[data-theme='dark'] .graph-title,
+html[data-theme='dark'] .title text,
+html[data-theme='dark'] .subtitle text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  font-family: var(--ff-base) !important;
+}
+
+/* Diagram headings and main titles */
+.mermaid text[text-anchor="start"]:first-child,
+.mermaid text:contains("Technical Architecture"),
+.mermaid text:contains("Architecture"),
+.mermaid g:first-child text,
+.mermaid svg>g:first-child text {
+  fill: #111827 !important;
+  color: #111827 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  font-family: var(--ff-base) !important;
+}
+
+html[data-theme='dark'] .mermaid text[text-anchor="start"]:first-child,
+html[data-theme='dark'] .mermaid text:contains("Technical Architecture"),
+html[data-theme='dark'] .mermaid text:contains("Architecture"),
+html[data-theme='dark'] .mermaid g:first-child text,
+html[data-theme='dark'] .mermaid svg>g:first-child text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  font-family: var(--ff-base) !important;
+}
+
+/* Axis labels and secondary text */
+.axis-label,
+.x-axis text,
+.y-axis text,
+.tick-label,
+.axis-title,
+.connection-label,
+.arrow-label,
+.edge-label {
+  fill: #6b7280 !important;
+  color: #6b7280 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+html[data-theme='dark'] .axis-label,
+html[data-theme='dark'] .x-axis text,
+html[data-theme='dark'] .y-axis text,
+html[data-theme='dark'] .tick-label,
+html[data-theme='dark'] .axis-title,
+html[data-theme='dark'] .connection-label,
+html[data-theme='dark'] .arrow-label,
+html[data-theme='dark'] .edge-label {
+  fill: #9ca3af !important;
+  color: #9ca3af !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+/* Data values and percentages - High contrast for emphasis */
+.data-label,
+.value-label,
+.percentage-label,
+.chart-value,
+.pie-chart text,
+.pie-slice-label,
+.pie-percentage,
+.bar-chart text,
+.bar-label,
+.bar-value,
+.line-chart text,
+.point-label,
+.line-label {
+  fill: #111827 !important;
+  color: #111827 !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  text-anchor: middle !important;
+}
+
+html[data-theme='dark'] .data-label,
+html[data-theme='dark'] .value-label,
+html[data-theme='dark'] .percentage-label,
+html[data-theme='dark'] .chart-value,
+html[data-theme='dark'] .pie-chart text,
+html[data-theme='dark'] .pie-slice-label,
+html[data-theme='dark'] .pie-percentage,
+html[data-theme='dark'] .bar-chart text,
+html[data-theme='dark'] .bar-label,
+html[data-theme='dark'] .bar-value,
+html[data-theme='dark'] .line-chart text,
+html[data-theme='dark'] .point-label,
+html[data-theme='dark'] .line-label {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  text-anchor: middle !important;
+}
+
+/* Legend text - Readable secondary text */
+.legend,
+.chart-legend,
+.legend-item,
+.legend-text {
+  fill: #4b5563 !important;
+  color: #4b5563 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+html[data-theme='dark'] .legend,
+html[data-theme='dark'] .chart-legend,
+html[data-theme='dark'] .legend-item,
+html[data-theme='dark'] .legend-text {
+  fill: #d1d5db !important;
+  color: #d1d5db !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+/* Node labels in diagrams - White text on colored node backgrounds */
+.node-label,
+.box-label,
+.component-label {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  text-anchor: middle !important;
+}
+
+html[data-theme='dark'] .node-label,
+html[data-theme='dark'] .box-label,
+html[data-theme='dark'] .component-label {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  text-anchor: middle !important;
+}
+
+
+
+/* SVG Background Management */
+.mermaid svg,
+.chart-container svg,
+.chart-wrapper svg,
+.graph-container svg {
+  background-color: #ffffff !important;
+}
+
+html[data-theme='dark'] .mermaid svg,
+html[data-theme='dark'] .chart-container svg,
+html[data-theme='dark'] .chart-wrapper svg,
+html[data-theme='dark'] .graph-container svg {
+  background-color: #1a1a1a !important;
+}
+
+/* SVG root background elements */
+.mermaid svg rect:first-child,
+.chart-container svg rect:first-child,
+.chart-wrapper svg rect:first-child,
+.graph-container svg rect:first-child {
+  fill: #ffffff !important;
+}
+
+html[data-theme='dark'] .mermaid svg rect:first-child,
+html[data-theme='dark'] .chart-container svg rect:first-child,
+html[data-theme='dark'] .chart-wrapper svg rect:first-child,
+html[data-theme='dark'] .graph-container svg rect:first-child {
+  fill: #1a1a1a !important;
+}
+
+/* Chart area backgrounds */
+.chart-container svg rect,
+.chart-wrapper svg rect,
+.graph-container svg rect {
+  fill: #ffffff !important;
+}
+
+html[data-theme='dark'] .chart-container svg rect,
+html[data-theme='dark'] .chart-wrapper svg rect,
+html[data-theme='dark'] .graph-container svg rect {
+  fill: #1a1a1a !important;
+}
+
+/* Enhanced Chart Color Palette */
+/* Brand-aligned color scheme for chart elements */
+
+/* Chart element colors - Light mode */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node polygon {
+  fill: var(--brand-prim) !important;
+  stroke: var(--brand-prim-hover) !important;
+  stroke-width: 2px !important;
+}
+
+.mermaid .node.secondary rect,
+.mermaid .node.secondary circle,
+.mermaid .node.secondary polygon {
+  fill: var(--brand-sec) !important;
+  stroke: var(--brand-sec-hover) !important;
+}
+
+/* Chart element colors - Dark mode */
+html[data-theme='dark'] .mermaid .node rect,
+html[data-theme='dark'] .mermaid .node circle,
+html[data-theme='dark'] .mermaid .node polygon {
+  fill: var(--brand-sec) !important;
+  stroke: #ffffff !important;
+  stroke-width: 2px !important;
+}
+
+html[data-theme='dark'] .mermaid .node.secondary rect,
+html[data-theme='dark'] .mermaid .node.secondary circle,
+html[data-theme='dark'] .mermaid .node.secondary polygon {
+  fill: var(--brand-prim) !important;
+  stroke: var(--brand-sec) !important;
+}
+
+/* Pie chart colors - Professional palette */
+.mermaid .pie-slice:nth-child(1) {
+  fill: var(--brand-prim) !important;
+}
+
+.mermaid .pie-slice:nth-child(2) {
+  fill: var(--brand-sec) !important;
+}
+
+.mermaid .pie-slice:nth-child(3) {
+  fill: #6366f1 !important;
+}
+
+.mermaid .pie-slice:nth-child(4) {
+  fill: #8b5cf6 !important;
+}
+
+.mermaid .pie-slice:nth-child(5) {
+  fill: #06b6d4 !important;
+}
+
+.mermaid .pie-slice:nth-child(6) {
+  fill: #10b981 !important;
+}
+
+html[data-theme='dark'] .mermaid .pie-slice:nth-child(1) {
+  fill: var(--brand-sec) !important;
+}
+
+html[data-theme='dark'] .mermaid .pie-slice:nth-child(2) {
+  fill: var(--brand-prim) !important;
+}
+
+html[data-theme='dark'] .mermaid .pie-slice:nth-child(3) {
+  fill: #818cf8 !important;
+}
+
+html[data-theme='dark'] .mermaid .pie-slice:nth-child(4) {
+  fill: #a78bfa !important;
+}
+
+html[data-theme='dark'] .mermaid .pie-slice:nth-child(5) {
+  fill: #22d3ee !important;
+}
+
+html[data-theme='dark'] .mermaid .pie-slice:nth-child(6) {
+  fill: #34d399 !important;
+}
+
+/* Bar chart colors */
+.mermaid .bar:nth-child(1) {
+  fill: var(--brand-prim) !important;
+}
+
+.mermaid .bar:nth-child(2) {
+  fill: var(--brand-sec) !important;
+}
+
+.mermaid .bar:nth-child(3) {
+  fill: #6366f1 !important;
+}
+
+.mermaid .bar:nth-child(4) {
+  fill: #8b5cf6 !important;
+}
+
+.mermaid .bar:nth-child(5) {
+  fill: #06b6d4 !important;
+}
+
+.mermaid .bar:nth-child(6) {
+  fill: #10b981 !important;
+}
+
+html[data-theme='dark'] .mermaid .bar:nth-child(1) {
+  fill: var(--brand-sec) !important;
+}
+
+html[data-theme='dark'] .mermaid .bar:nth-child(2) {
+  fill: var(--brand-prim) !important;
+}
+
+html[data-theme='dark'] .mermaid .bar:nth-child(3) {
+  fill: #818cf8 !important;
+}
+
+html[data-theme='dark'] .mermaid .bar:nth-child(4) {
+  fill: #a78bfa !important;
+}
+
+html[data-theme='dark'] .mermaid .bar:nth-child(5) {
+  fill: #22d3ee !important;
+}
+
+html[data-theme='dark'] .mermaid .bar:nth-child(6) {
+  fill: #34d399 !important;
+}
+
+/* Connection lines and arrows */
+.mermaid .edge-path path,
+.mermaid .flowchart-link {
+  stroke: var(--brand-sec) !important;
+  stroke-width: 2px !important;
+}
+
+html[data-theme='dark'] .mermaid .edge-path path,
+html[data-theme='dark'] .mermaid .flowchart-link {
+  stroke: var(--brand-sec) !important;
+  stroke-width: 2px !important;
+}
+
+/* Grid lines and axes */
+.mermaid .grid line,
+.mermaid .tick line {
+  stroke: #e5e7eb !important;
+  stroke-width: 1px !important;
+}
+
+html[data-theme='dark'] .mermaid .grid line,
+html[data-theme='dark'] .mermaid .tick line {
+  stroke: #374151 !important;
+  stroke-width: 1px !important;
+}
+
+/* ===========================
+   PROFESSIONAL MERMAID BAR CHART STYLING
+   Optimized for both light and dark themes
+   =========================== */
+
+/* Chart Container - Transparent background that adapts to theme */
+.mermaid {
+  background: transparent !important;
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  margin: 24px 0 !important;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.3s ease !important;
+}
+
+html[data-theme='dark'] .mermaid {
+  background: transparent !important;
+  border: 2px solid #374151 !important;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -1px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Chart hover effect */
+.mermaid:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+html[data-theme='dark'] .mermaid:hover {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.25),
+    0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* SVG Background - Transparent to match theme */
+.mermaid svg {
+  background: transparent !important;
+  border-radius: 12px !important;
+}
+
+html[data-theme='dark'] .mermaid svg {
+  background: transparent !important;
+}
+
+/* FORCE TEXT VISIBILITY - Override all previous rules */
+/* Chart Title Styling - Professional typography */
+.mermaid svg text[text-anchor="middle"]:first-of-type,
+.mermaid .titleText,
+.mermaid .chart-title,
+html[data-theme='dark'] .mermaid svg text[text-anchor="middle"]:first-of-type,
+html[data-theme='dark'] .mermaid .titleText,
+html[data-theme='dark'] .mermaid .chart-title {
+  fill: #1e293b !important;
+  color: #1e293b !important;
+  font-family: var(--ff-base) !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+}
+
+/* ALL TEXT ELEMENTS - Force visibility in both themes */
+.mermaid svg text,
+.mermaid .label,
+.mermaid .tick text,
+.mermaid .axis text,
+.mermaid .pieTitleText,
+.mermaid .pieLabels text,
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .taskText,
+html[data-theme='dark'] .mermaid svg text,
+html[data-theme='dark'] .mermaid .label,
+html[data-theme='dark'] .mermaid .tick text,
+html[data-theme='dark'] .mermaid .axis text,
+html[data-theme='dark'] .mermaid .pieTitleText,
+html[data-theme='dark'] .mermaid .pieLabels text,
+html[data-theme='dark'] .mermaid .nodeLabel,
+html[data-theme='dark'] .mermaid .edgeLabel,
+html[data-theme='dark'] .mermaid .taskText {
+  fill: #374151 !important;
+  color: #374151 !important;
+  font-family: var(--ff-base) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Y-Axis Values - Emphasized for data clarity */
+.mermaid svg g.tick text,
+html[data-theme='dark'] .mermaid svg g.tick text {
+  fill: #1f2937 !important;
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+}
+
+/* X-Axis Category Labels - Professional styling */
+.mermaid svg g.xAxis text,
+html[data-theme='dark'] .mermaid svg g.xAxis text {
+  fill: #374151 !important;
+  color: #374151 !important;
+  font-weight: 500 !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Bar Colors - Professional gradient palette */
+.mermaid rect[class*="bar"]:nth-child(1),
+.mermaid .bar:nth-child(1) {
+  fill: linear-gradient(135deg, #13493f 0%, #0f3a32 100%) !important;
+  stroke: #0a2e26 !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(2),
+.mermaid .bar:nth-child(2) {
+  fill: linear-gradient(135deg, #41a290 0%, #359985 100%) !important;
+  stroke: #2d7a6b !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(3),
+.mermaid .bar:nth-child(3) {
+  fill: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  stroke: #065f46 !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(4),
+.mermaid .bar:nth-child(4) {
+  fill: linear-gradient(135deg, #0891b2 0%, #0e7490 100%) !important;
+  stroke: #155e75 !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(5),
+.mermaid .bar:nth-child(5) {
+  fill: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+  stroke: #5b21b6 !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(6),
+.mermaid .bar:nth-child(6) {
+  fill: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  stroke: #991b1b !important;
+  stroke-width: 1px !important;
+}
+
+/* Bar Hover Effects */
+.mermaid rect[class*="bar"]:hover,
+.mermaid .bar:hover {
+  opacity: 0.8 !important;
+  transform: scaleY(1.02) !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+/* Grid Lines - Subtle and professional */
+.mermaid .grid line,
+.mermaid .tick line {
+  stroke: #e2e8f0 !important;
+  stroke-width: 0.5px !important;
+  stroke-dasharray: 2, 2 !important;
+  opacity: 0.6 !important;
+}
+
+/* Axis Lines - Clean borders */
+.mermaid .domain {
+  stroke: #64748b !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Data Value Labels on Bars - High contrast */
+.mermaid text[text-anchor="middle"]:not(:first-of-type),
+html[data-theme='dark'] .mermaid text[text-anchor="middle"]:not(:first-of-type) {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ULTIMATE TEXT OVERRIDE - Theme-aware text colors */
+.mermaid svg text,
+.mermaid svg tspan {
+  fill: #374151 !important;
+  color: #374151 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+html[data-theme='dark'] .mermaid svg text,
+html[data-theme='dark'] .mermaid svg tspan {
+  fill: #d1d5db !important;
+  color: #d1d5db !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* CHART TITLE SPECIFIC OVERRIDE - Theme-aware colors */
+.mermaid svg text:first-child,
+.mermaid svg g:first-child text,
+.mermaid svg text[font-size="16"],
+.mermaid svg text[font-size="18"],
+.mermaid svg text[font-size="20"],
+.mermaid svg text[text-anchor="middle"] {
+  fill: #1f2937 !important;
+  color: #1f2937 !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  stroke: none !important;
+}
+
+html[data-theme='dark'] .mermaid svg text:first-child,
+html[data-theme='dark'] .mermaid svg g:first-child text,
+html[data-theme='dark'] .mermaid svg text[font-size="16"],
+html[data-theme='dark'] .mermaid svg text[font-size="18"],
+html[data-theme='dark'] .mermaid svg text[font-size="20"],
+html[data-theme='dark'] .mermaid svg text[text-anchor="middle"] {
+  fill: #f9fafb !important;
+  color: #f9fafb !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  stroke: none !important;
+}
+
+/* AXIS LABELS SPECIFIC OVERRIDE */
+.mermaid svg .tick text,
+.mermaid svg .domain text {
+  fill: #6b7280 !important;
+  color: #6b7280 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  stroke: none !important;
+}
+
+html[data-theme='dark'] .mermaid svg .tick text,
+html[data-theme='dark'] .mermaid svg .domain text {
+  fill: #9ca3af !important;
+  color: #9ca3af !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  stroke: none !important;
+}
+
+/* Legend Styling (if present) */
+.mermaid .legend text {
+  fill: #374151 !important;
+  color: #374151 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  .mermaid {
+    padding: 16px !important;
+    margin: 16px 0 !important;
+  }
+
+  .mermaid svg text {
+    font-size: 11px !important;
+  }
+
+  .mermaid svg text[text-anchor="middle"]:first-of-type {
+    font-size: 16px !important;
+  }
+
+  .mermaid svg g.xAxis text {
+    font-size: 10px !important;
+  }
+}
+
+/* Animation for chart loading */
+.mermaid svg {
+  animation: chartFadeIn 0.6s ease-out !important;
+}
+
+@keyframes chartFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* High contrast mode for accessibility */
+@media (prefers-contrast: high) {
+
+  .chart-container text,
+  .mermaid svg text,
+  svg text {
+    fill: #000000 !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+    stroke: #ffffff !important;
+    stroke-width: 0.5px !important;
+  }
+
+  html[data-theme='dark'] .chart-container text,
+  html[data-theme='dark'] .mermaid svg text,
+  html[data-theme='dark'] svg text {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    stroke: #000000 !important;
+  }
+}
+
+/* Print styles for charts */
+@media print {
+
+  .chart-container,
+  .mermaid {
+    background: #ffffff !important;
+    border: 1px solid #000000 !important;
+    box-shadow: none !important;
+  }
+
+  .chart-container text,
+  .mermaid svg text {
+    fill: #000000 !important;
+    color: #000000 !important;
+  }
+
+  .mermaid .node rect,
+  .mermaid .node circle,
+  .mermaid .node polygon {
+    fill: #f3f4f6 !important;
+    stroke: #000000 !important;
+  }
+}
+
+/* ===========================
+   FOOTER STYLING
+   Distinctive footer colors that complement the brand
+   =========================== */
+
+/* Footer container - Light mode */
+.footer,
+.footer--dark {
+  background: linear-gradient(135deg, #f0f4f3 0%, #e8f0ed 100%) !important;
+  border-top: 1px solid var(--brand-prim) !important;
+  padding: 2rem 0 !important;
+}
+
+/* Footer container - Dark mode */
+html[data-theme='dark'] .footer,
+html[data-theme='dark'] .footer--dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+  border-top: 1px solid #3a3a3a !important;
+  padding: 2rem 0 !important;
+}
+
+/* Footer text - Light mode */
+.footer__copyright,
+.footer__link-item,
+.footer__title,
+.footer__item,
+.footer .text--center {
+  color: var(--brand-prim) !important;
+  background: transparent !important;
+  font-weight: var(--fw-500) !important;
+}
+
+/* Footer text - Dark mode */
+html[data-theme='dark'] .footer__copyright,
+html[data-theme='dark'] .footer__link-item,
+html[data-theme='dark'] .footer__title,
+html[data-theme='dark'] .footer__item,
+html[data-theme='dark'] .footer .text--center {
+  color: var(--brand-sec) !important;
+  background: transparent !important;
+  font-weight: var(--fw-500) !important;
+}
+
+/* Footer links hover state */
+.footer__link-item:hover {
+  color: var(--brand-sec) !important;
+  text-decoration: underline !important;
+}
+
+html[data-theme='dark'] .footer__link-item:hover {
+  color: var(--brand-sec) !important;
+  text-decoration: underline !important;
+}
+
+/* Footer copyright styling */
+.footer__copyright {
+  font-size: var(--fz-sm) !important;
+  opacity: 0.9 !important;
+}
+
+/* Remove any unwanted backgrounds from footer elements */
+.footer *,
+.footer--dark *,
+.footer div,
+.footer--dark div,
+.footer span,
+.footer--dark span,
+.footer p,
+.footer--dark p {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+html[data-theme='dark'] .footer *,
+html[data-theme='dark'] .footer--dark *,
+html[data-theme='dark'] .footer div,
+html[data-theme='dark'] .footer--dark div,
+html[data-theme='dark'] .footer span,
+html[data-theme='dark'] .footer--dark span,
+html[data-theme='dark'] .footer p,
+html[data-theme='dark'] .footer--dark p {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* Specific targeting for copyright text container */
+.footer__copyright,
+.footer__copyright *,
+.footer .text--center,
+.footer .text--center * {
+  background-color: transparent !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+html[data-theme='dark'] .footer__copyright,
+html[data-theme='dark'] .footer__copyright *,
+html[data-theme='dark'] .footer .text--center,
+html[data-theme='dark'] .footer .text--center * {
+  background-color: transparent !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Force remove any container backgrounds */
+.footer .container,
+.footer--dark .container,
+.footer .container-fluid,
+.footer--dark .container-fluid {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+html[data-theme='dark'] .footer .container,
+html[data-theme='dark'] .footer--dark .container,
+html[data-theme='dark'] .footer .container-fluid,
+html[data-theme='dark'] .footer--dark .container-fluid {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* ===
+========================
+   ECHARTS STYLING
+   Professional styling for ECharts components
+   =========================== */
+
+/* ECharts container styling */
+.echarts-container,
+.echarts-wrapper,
+.echarts-chart {
+  background: #ffffff !important;
+  border: 2px solid var(--brand-prim) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  margin: 16px 0 !important;
+  box-shadow: 0 4px 12px rgba(19, 73, 63, 0.15) !important;
+}
+
+html[data-theme='dark'] .echarts-container,
+html[data-theme='dark'] .echarts-wrapper,
+html[data-theme='dark'] .echarts-chart {
+  background: #1a1a1a !important;
+  border: 2px solid var(--brand-sec) !important;
+  box-shadow: 0 4px 12px rgba(65, 162, 144, 0.3) !important;
+}
+
+/* ECharts canvas styling */
+.echarts-container canvas,
+.echarts-wrapper canvas,
+.echarts-chart canvas {
+  background: transparent !important;
+}
+
+/* Responsive ECharts */
+@media (max-width: 768px) {
+
+  .echarts-container,
+  .echarts-wrapper,
+  .echarts-chart {
+    padding: 12px !important;
+    margin: 12px 0 !important;
+  }
+}
+
+/* ===========================
+   CHART.JS STYLING
+   Professional styling for Chart.js components
+   =========================== */
+
+/* Chart.js container styling */
+.chartjs-container,
+.chartjs-wrapper,
+.chart-js {
+  background: #ffffff !important;
+  border: 2px solid var(--brand-prim) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  margin: 16px 0 !important;
+  box-shadow: 0 4px 12px rgba(19, 73, 63, 0.15) !important;
+}
+
+html[data-theme='dark'] .chartjs-container,
+html[data-theme='dark'] .chartjs-wrapper,
+html[data-theme='dark'] .chart-js {
+  background: #1a1a1a !important;
+  border: 2px solid var(--brand-sec) !important;
+  box-shadow: 0 4px 12px rgba(65, 162, 144, 0.3) !important;
+}
+
+/* Chart.js canvas styling */
+.chartjs-container canvas,
+.chartjs-wrapper canvas,
+.chart-js canvas {
+  background: transparent !important;
+}
+
+/* Responsive Chart.js */
+@media (max-width: 768px) {
+
+  .chartjs-container,
+  .chartjs-wrapper,
+  .chart-js {
+    padding: 12px !important;
+    margin: 12px 0 !important;
+  }
+}
+
+/* ===========================
+   GENERIC CHART IMPROVEMENTS
+   Additional enhancements for all chart types
+   =========================== */
+
+/* Improved hover states for interactive charts */
+.chart-container:hover,
+.chart-wrapper:hover,
+.graph-container:hover,
+.mermaid:hover,
+.echarts-container:hover,
+.chartjs-container:hover {
+  box-shadow: 0 6px 16px rgba(19, 73, 63, 0.2) !important;
+  transform: translateY(-1px);
+  transition: all 0.2s ease-in-out;
+}
+
+html[data-theme='dark'] .chart-container:hover,
+html[data-theme='dark'] .chart-wrapper:hover,
+html[data-theme='dark'] .graph-container:hover,
+html[data-theme='dark'] .mermaid:hover,
+html[data-theme='dark'] .echarts-container:hover,
+html[data-theme='dark'] .chartjs-container:hover {
+  box-shadow: 0 6px 16px rgba(65, 162, 144, 0.4) !important;
+}
+
+/* Chart loading states */
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background: var(--bg-light);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-family: var(--ff-base);
+}
+
+.chart-loading::after {
+  content: "Loading chart...";
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Chart error states */
+.chart-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background: #fef2f2;
+  border: 2px solid #fca5a5;
+  border-radius: 12px;
+  color: #dc2626;
+  font-family: var(--ff-base);
+  font-weight: 500;
+}
+
+html[data-theme='dark'] .chart-error {
+  background: #1f1f1f;
+  border-color: #ef4444;
+  color: #f87171;
+}
+
+.chart-error::before {
+  content: "⚠️ ";
+  margin-right: 8px;
+}
+
+/* ===========================
+   UNIFIED MERMAID CHART SYSTEM
+   Professional styling for all mermaid charts with perfect light/dark mode support
+   =========================== */
+
+/* Base mermaid container - Professional styling with theme adaptation */
+.mermaid {
+  background: transparent !important;
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  margin: 24px 0 !important;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+html[data-theme='dark'] .mermaid {
+  border: 2px solid #374151 !important;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -1px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Hover effects for interactive feel */
+.mermaid:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+html[data-theme='dark'] .mermaid:hover {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.25),
+    0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* SVG container - Transparent background that adapts to theme */
+.mermaid svg {
+  background: transparent !important;
+  border-radius: 12px !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* ===========================
+   TEXT STYLING - PERFECT VISIBILITY IN BOTH MODES
+   =========================== */
+
+/* ALL TEXT ELEMENTS - Universal text styling for perfect visibility */
+.mermaid svg text,
+.mermaid .label,
+.mermaid .tick text,
+.mermaid .axis text,
+.mermaid .pieTitleText,
+.mermaid .pieLabels text,
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .taskText,
+.mermaid .titleText,
+.mermaid .sectionTitle,
+.mermaid .classTitle,
+.mermaid .stateLabelText,
+.mermaid .relationshipLabelText,
+.mermaid .journeyTitleText,
+.mermaid .ganttTitleText {
+  /* Light mode - Dark text for contrast */
+  fill: #1f2937 !important;
+  color: #1f2937 !important;
+  font-family: var(--ff-base) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Dark mode - Light text for visibility */
+html[data-theme='dark'] .mermaid svg text,
+html[data-theme='dark'] .mermaid .label,
+html[data-theme='dark'] .mermaid .tick text,
+html[data-theme='dark'] .mermaid .axis text,
+html[data-theme='dark'] .mermaid .pieTitleText,
+html[data-theme='dark'] .mermaid .pieLabels text,
+html[data-theme='dark'] .mermaid .nodeLabel,
+html[data-theme='dark'] .mermaid .edgeLabel,
+html[data-theme='dark'] .mermaid .taskText,
+html[data-theme='dark'] .mermaid .titleText,
+html[data-theme='dark'] .mermaid .sectionTitle,
+html[data-theme='dark'] .mermaid .classTitle,
+html[data-theme='dark'] .mermaid .stateLabelText,
+html[data-theme='dark'] .mermaid .relationshipLabelText,
+html[data-theme='dark'] .mermaid .journeyTitleText,
+html[data-theme='dark'] .mermaid .ganttTitleText {
+  fill: #f9fafb !important;
+  color: #f9fafb !important;
+  font-family: var(--ff-base) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Chart titles - Prominent styling */
+.mermaid svg text[text-anchor="middle"]:first-of-type,
+.mermaid .titleText,
+.mermaid .chart-title,
+.mermaid .pieTitleText {
+  fill: #1e293b !important;
+  color: #1e293b !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+}
+
+html[data-theme='dark'] .mermaid svg text[text-anchor="middle"]:first-of-type,
+html[data-theme='dark'] .mermaid .titleText,
+html[data-theme='dark'] .mermaid .chart-title,
+html[data-theme='dark'] .mermaid .pieTitleText {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Axis labels and secondary text */
+.mermaid svg g.tick text,
+.mermaid .axis-label,
+.mermaid .x-axis text,
+.mermaid .y-axis text,
+.mermaid .tick-label {
+  fill: #374151 !important;
+  color: #374151 !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+}
+
+html[data-theme='dark'] .mermaid svg g.tick text,
+html[data-theme='dark'] .mermaid .axis-label,
+html[data-theme='dark'] .mermaid .x-axis text,
+html[data-theme='dark'] .mermaid .y-axis text,
+html[data-theme='dark'] .mermaid .tick-label {
+  fill: #d1d5db !important;
+  color: #d1d5db !important;
+}
+
+/* Node labels - White text on colored backgrounds */
+.mermaid .node text,
+.mermaid .node-label,
+.mermaid .box-label,
+.mermaid .component-label {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  text-anchor: middle !important;
+}
+
+/* Ensure node labels stay white in both modes */
+html[data-theme='dark'] .mermaid .node text,
+html[data-theme='dark'] .mermaid .node-label,
+html[data-theme='dark'] .mermaid .box-label,
+html[data-theme='dark'] .mermaid .component-label {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* ===========================
+   CHART ELEMENT STYLING
+   =========================== */
+
+/* Professional color palette for chart elements */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node polygon,
+.mermaid .cluster rect {
+  fill: var(--brand-prim) !important;
+  stroke: #0f3a32 !important;
+  stroke-width: 2px !important;
+}
+
+.mermaid .node.secondary rect,
+.mermaid .node.secondary circle,
+.mermaid .node.secondary polygon {
+  fill: var(--brand-sec) !important;
+  stroke: #359985 !important;
+}
+
+/* Dark mode adjustments for better contrast */
+html[data-theme='dark'] .mermaid .node rect,
+html[data-theme='dark'] .mermaid .node circle,
+html[data-theme='dark'] .mermaid .node polygon,
+html[data-theme='dark'] .mermaid .cluster rect {
+  fill: var(--brand-sec) !important;
+  stroke: #ffffff !important;
+  stroke-width: 2px !important;
+}
+
+/* Connection lines and arrows */
+.mermaid .edge-path path,
+.mermaid .flowchart-link,
+.mermaid .relation {
+  stroke: var(--brand-sec) !important;
+  stroke-width: 2px !important;
+  fill: none !important;
+}
+
+.mermaid .arrowheadPath {
+  fill: var(--brand-sec) !important;
+  stroke: var(--brand-sec) !important;
+}
+
+/* Grid lines and axes - Subtle but visible */
+.mermaid .grid line,
+.mermaid .tick line,
+.mermaid .domain {
+  stroke: #e5e7eb !important;
+  stroke-width: 1px !important;
+}
+
+html[data-theme='dark'] .mermaid .grid line,
+html[data-theme='dark'] .mermaid .tick line,
+html[data-theme='dark'] .mermaid .domain {
+  stroke: #374151 !important;
+}
+
+/* ===========================
+   CHART TYPE SPECIFIC STYLING
+   =========================== */
+
+/* Bar Charts - Professional gradient colors */
+.mermaid rect[class*="bar"]:nth-child(1) {
+  fill: #13493f !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(2) {
+  fill: #41a290 !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(3) {
+  fill: #059669 !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(4) {
+  fill: #6366f1 !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(5) {
+  fill: #8b5cf6 !important;
+}
+
+.mermaid rect[class*="bar"]:nth-child(6) {
+  fill: #06b6d4 !important;
+}
+
+/* Pie Charts - Consistent color scheme */
+.mermaid .pie-slice:nth-child(1) {
+  fill: var(--brand-prim) !important;
+}
+
+.mermaid .pie-slice:nth-child(2) {
+  fill: var(--brand-sec) !important;
+}
+
+.mermaid .pie-slice:nth-child(3) {
+  fill: #6366f1 !important;
+}
+
+.mermaid .pie-slice:nth-child(4) {
+  fill: #8b5cf6 !important;
+}
+
+.mermaid .pie-slice:nth-child(5) {
+  fill: #06b6d4 !important;
+}
+
+.mermaid .pie-slice:nth-child(6) {
+  fill: #10b981 !important;
+}
+
+/* Line Charts - Smooth professional lines */
+.mermaid .line {
+  stroke: var(--brand-prim) !important;
+  stroke-width: 3px !important;
+  fill: none !important;
+}
+
+.mermaid .line.secondary {
+  stroke: var(--brand-sec) !important;
+}
+
+/* Gantt Charts */
+.mermaid .task {
+  fill: var(--brand-prim) !important;
+  stroke: #0f3a32 !important;
+}
+
+.mermaid .taskText {
+  fill: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .mermaid {
+    padding: 16px !important;
+    margin: 16px 0 !important;
+    border-radius: 12px !important;
+  }
+
+  .mermaid svg text {
+    font-size: 11px !important;
+  }
+
+  .mermaid .titleText,
+  .mermaid .chart-title {
+    font-size: 16px !important;
+  }
+}
+
+/* Tablet optimizations */
+@media (max-width: 1024px) {
+  .mermaid {
+    padding: 20px !important;
+  }
+
+  .mermaid svg text {
+    font-size: 12px !important;
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY ENHANCEMENTS
+   =========================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mermaid {
+    border-width: 3px !important;
+  }
+
+  .mermaid svg text {
+    font-weight: 700 !important;
+  }
+
+  .mermaid .node rect,
+  .mermaid .node circle {
+    stroke-width: 3px !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+  .mermaid,
+  .mermaid:hover {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Focus states for accessibility */
+.mermaid:focus-within {
+  outline: 2px solid var(--brand-sec) !important;
+  outline-offset: 2px !important;
+}
+
+/* ===========================
+   PRINT STYLES
+   =========================== */
+
+@media print {
+  .mermaid {
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  .mermaid svg {
+    background: #ffffff !important;
+  }
+
+  .mermaid svg text {
+    fill: #000000 !important;
+    color: #000000 !important;
+  }
+}
+
+/* ===========================
+   FLOWCHART DARK MODE FIXES
+   Specific overrides for flowchart node styling in dark mode
+   =========================== */
+
+/* Override flowchart node fills in dark mode for better visibility */
+html[data-theme='dark'] .mermaid .node rect[fill="#f3f4f6"],
+html[data-theme='dark'] .mermaid .node rect[style*="fill:#f3f4f6"],
+html[data-theme='dark'] .mermaid .node rect[style*="fill: #f3f4f6"] {
+  fill: #374151 !important;
+}
+
+/* Override flowchart node text colors in dark mode */
+html[data-theme='dark'] .mermaid .node text[fill="#1f2937"],
+html[data-theme='dark'] .mermaid .node text[style*="fill:#1f2937"],
+html[data-theme='dark'] .mermaid .node text[style*="fill: #1f2937"],
+html[data-theme='dark'] .mermaid .node text[color="#1f2937"],
+html[data-theme='dark'] .mermaid .node text[style*="color:#1f2937"],
+html[data-theme='dark'] .mermaid .node text[style*="color: #1f2937"] {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Ensure dark background nodes keep white text in dark mode */
+html[data-theme='dark'] .mermaid .node rect[fill="#13493f"],
+html[data-theme='dark'] .mermaid .node rect[style*="fill:#13493f"],
+html[data-theme='dark'] .mermaid .node rect[style*="fill: #13493f"] {
+  fill: #41a290 !important;
+}
+
+/* Override stroke colors for better contrast in dark mode */
+html[data-theme='dark'] .mermaid .node rect[stroke="#6b7280"],
+html[data-theme='dark'] .mermaid .node rect[style*="stroke:#6b7280"],
+html[data-theme='dark'] .mermaid .node rect[style*="stroke: #6b7280"] {
+  stroke: #ffffff !important;
+  stroke-width: 2px !important;
+}
+
+/* Force all flowchart node text to be visible in dark mode */
+html[data-theme='dark'] .mermaid .flowchart .node text,
+html[data-theme='dark'] .mermaid .flowchart-label,
+html[data-theme='dark'] .mermaid .node .label,
+html[data-theme='dark'] .mermaid .nodeLabel {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Specific overrides for nodes with light backgrounds */
+html[data-theme='dark'] .mermaid .node[style*="fill:#f3f4f6"] text,
+html[data-theme='dark'] .mermaid .node[style*="fill: #f3f4f6"] text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Override for nodes with dark backgrounds to ensure white text */
+html[data-theme='dark'] .mermaid .node[style*="fill:#13493f"] text,
+html[data-theme='dark'] .mermaid .node[style*="fill: #13493f"] text,
+html[data-theme='dark'] .mermaid .node[style*="fill:#41a290"] text,
+html[data-theme='dark'] .mermaid .node[style*="fill: #41a290"] text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Enhanced specificity for flowchart elements */
+html[data-theme='dark'] .mermaid svg .flowchart .node rect {
+  fill: #374151 !important;
+  stroke: #ffffff !important;
+  stroke-width: 2px !important;
+}
+
+html[data-theme='dark'] .mermaid svg .flowchart .node text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Special handling for primary nodes (darker backgrounds) */
+html[data-theme='dark'] .mermaid svg .flowchart .node.primary rect,
+html[data-theme='dark'] .mermaid svg .flowchart .node[class*="primary"] rect {
+  fill: #41a290 !important;
+  stroke: #ffffff !important;
+}
+
+html[data-theme='dark'] .mermaid svg .flowchart .node.primary text,
+html[data-theme='dark'] .mermaid svg .flowchart .node[class*="primary"] text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Flowchart connection lines and arrows - enhanced visibility */
+html[data-theme='dark'] .mermaid .flowchart-link,
+html[data-theme='dark'] .mermaid .edge-path path {
+  stroke: #60d394 !important;
+  stroke-width: 2px !important;
+}
+
+html[data-theme='dark'] .mermaid .arrowheadPath,
+html[data-theme='dark'] .mermaid .arrowhead {
+  fill: #60d394 !important;
+  stroke: #60d394 !important;
+}
+
+/* Edge labels for flowcharts */
+html[data-theme='dark'] .mermaid .edgeLabel,
+html[data-theme='dark'] .mermaid .edge-label {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  border: 1px solid #374151 !important;
+  border-radius: 4px !important;
+  padding: 2px 6px !important;
+}
+
+/*
+ ===========================
+   COMPREHENSIVE FLOWCHART DARK MODE SOLUTION
+   Ultimate fix for all flowchart visibility issues
+   =========================== */
+
+/* Force all flowchart nodes to have proper contrast in dark mode */
+html[data-theme='dark'] .mermaid .flowchart .node rect,
+html[data-theme='dark'] .mermaid .flowchart .node circle,
+html[data-theme='dark'] .mermaid .flowchart .node polygon {
+  fill: #374151 !important;
+  stroke: #ffffff !important;
+  stroke-width: 2px !important;
+}
+
+/* Override for primary/accent nodes */
+html[data-theme='dark'] .mermaid .flowchart .node[style*="fill:#13493f"] rect,
+html[data-theme='dark'] .mermaid .flowchart .node[style*="fill:#41a290"] rect {
+  /* Keep the original colors for primary nodes */
+  stroke: #ffffff !important;
+  stroke-width: 2px !important;
+}
+
+/* Ensure ALL flowchart text is white in dark mode */
+html[data-theme='dark'] .mermaid .flowchart .node text,
+html[data-theme='dark'] .mermaid .flowchart .nodeLabel,
+html[data-theme='dark'] .mermaid .flowchart .label {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+/* Specific override for any remaining dark text */
+html[data-theme='dark'] .mermaid text[fill="#1f2937"],
+html[data-theme='dark'] .mermaid text[fill="#374151"],
+html[data-theme='dark'] .mermaid text[fill="#000000"],
+html[data-theme='dark'] .mermaid text[fill="#111827"] {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Enhanced connection styling for better visibility */
+html[data-theme='dark'] .mermaid .flowchart .edge path,
+html[data-theme='dark'] .mermaid .flowchart .edge-path path {
+  stroke: #60d394 !important;
+  stroke-width: 2px !important;
+  fill: none !important;
+}
+
+/* Arrow heads */
+html[data-theme='dark'] .mermaid .flowchart .arrowheadPath,
+html[data-theme='dark'] .mermaid .flowchart .arrowhead path {
+  fill: #60d394 !important;
+  stroke: #60d394 !important;
+}
+
+/* Cluster/subgraph backgrounds */
+html[data-theme='dark'] .mermaid .cluster rect {
+  fill: #1f2937 !important;
+  stroke: #374151 !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 5, 5 !important;
+}
+
+html[data-theme='dark'] .mermaid .cluster text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Final catch-all for any missed elements */
+html[data-theme='dark'] .mermaid svg g.node rect[fill],
+html[data-theme='dark'] .mermaid svg g.node circle[fill],
+html[data-theme='dark'] .mermaid svg g.node polygon[fill] {
+  fill: #374151 !important;
+  stroke: #ffffff !important;
+}
+
+html[data-theme='dark'] .mermaid svg g.node text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Ensure proper contrast for all node types */
+html[data-theme='dark'] .mermaid .node0 rect,
+html[data-theme='dark'] .mermaid .node1 rect,
+html[data-theme='dark'] .mermaid .node2 rect,
+html[data-theme='dark'] .mermaid .node3 rect,
+html[data-theme='dark'] .mermaid .node4 rect,
+html[data-theme='dark'] .mermaid .node5 rect {
+  fill: #374151 !important;
+  stroke: #ffffff !important;
+  stroke-width: 2px !important;
+}
+
+html[data-theme='dark'] .mermaid .node0 text,
+html[data-theme='dark'] .mermaid .node1 text,
+html[data-theme='dark'] .mermaid .node2 text,
+html[data-theme='dark'] .mermaid .node3 text,
+html[data-theme='dark'] .mermaid .node4 text,
+html[data-theme='dark'] .mermaid .node5 text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* ===========================
+   SANKEY DIAGRAM DARK MODE FIXES
+   Specific styling for sankey-beta charts
+   =========================== */
+/* Sankey diagram text labels - force white in dark mode */
+html[data-theme='dark'] .mermaid .sankey .node text,
+html[data-theme='dark'] .mermaid .sankey .nodeLabel,
+html[data-theme='dark'] .mermaid .sankey text,
+html[data-theme='dark'] .mermaid svg g.sankey text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Sankey node rectangles - better visibility in dark mode */
+html[data-theme='dark'] .mermaid .sankey .node rect,
+html[data-theme='dark'] .mermaid svg g.sankey rect {
+  stroke: #ffffff !important;
+  stroke-width: 2px !important;
+  opacity: 0.9 !important;
+}
+
+/* Sankey links/flows - enhanced visibility */
+html[data-theme='dark'] .mermaid .sankey .link,
+html[data-theme='dark'] .mermaid svg g.sankey path {
+  opacity: 0.7 !important;
+  stroke: none !important;
+}
+
+/* Sankey title styling */
+html[data-theme='dark'] .mermaid .sankey .title,
+html[data-theme='dark'] .mermaid svg g.sankey .title {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+/* Force all sankey text elements to be visible */
+html[data-theme='dark'] .mermaid svg text[text-anchor="start"],
+html[data-theme='dark'] .mermaid svg text[text-anchor="end"],
+html[data-theme='dark'] .mermaid svg text[text-anchor="middle"] {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Sankey specific node styling with better contrast */
+html[data-theme='dark'] .mermaid .sankeyNode rect {
+  fill: #374151 !important;
+  stroke: #ffffff !important;
+  stroke-width: 2px !important;
+}
+
+html[data-theme='dark'] .mermaid .sankeyNode text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+}
+
+/* Enhanced link colors for better visibility */
+html[data-theme='dark'] .mermaid .sankeyLink0 {
+  fill: #ef4444 !important;
+  opacity: 0.7 !important;
+}
+
+html[data-theme='dark'] .mermaid .sankeyLink1 {
+  fill: #f97316 !important;
+  opacity: 0.7 !important;
+}
+
+html[data-theme='dark'] .mermaid .sankeyLink2 {
+  fill: #06b6d4 !important;
+  opacity: 0.7 !important;
+}
+
+html[data-theme='dark'] .mermaid .sankeyLink3 {
+  fill: #10b981 !important;
+  opacity: 0.7 !important;
+}
+
+/* Catch-all for any remaining sankey text elements */
+html[data-theme='dark'] .mermaid svg g[class*="sankey"] text,
+html[data-theme='dark'] .mermaid svg g[class*="node"] text,
+html[data-theme='dark'] .mermaid svg g[class*="link"] text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* ===========================
+   PROFESSIONAL SANKEY DIAGRAM FIX
+   Root cause solution for dark mode visibility
+   =========================== */
+
+/* The core issue: Sankey links inherit theme colors that become invisible in dark mode */
+/* Solution: Override with explicit colors and opacity for dark mode */
+
+/* Target all possible Sankey path elements with maximum specificity */
+html[data-theme='dark'] .mermaid svg path,
+html[data-theme='dark'] .mermaid svg g path,
+html[data-theme='dark'] .mermaid svg g path[d],
+html[data-theme='dark'] .mermaid .sankey-link,
+html[data-theme='dark'] .mermaid .sankey path,
+html[data-theme='dark'] .mermaid [class*="sankey"] path,
+html[data-theme='dark'] .mermaid svg g[class*="link"] path,
+html[data-theme='dark'] .mermaid svg g[class*="flow"] path {
+  fill-opacity: 0.7 !important;
+  stroke: none !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Specific color overrides for each Sankey flow - Multiple targeting approaches */
+html[data-theme='dark'] .mermaid svg g:nth-of-type(1) path,
+html[data-theme='dark'] .mermaid svg g:nth-of-type(1) path[d],
+html[data-theme='dark'] .mermaid svg path:nth-of-type(1) {
+  fill: #f59e0b !important;
+  /* Amber for Liquidity Operations */
+}
+
+html[data-theme='dark'] .mermaid svg g:nth-of-type(2) path,
+html[data-theme='dark'] .mermaid svg g:nth-of-type(2) path[d],
+html[data-theme='dark'] .mermaid svg path:nth-of-type(2) {
+  fill: #ef4444 !important;
+  /* Red for Project Co-financing */
+}
+
+html[data-theme='dark'] .mermaid svg g:nth-of-type(3) path,
+html[data-theme='dark'] .mermaid svg g:nth-of-type(3) path[d],
+html[data-theme='dark'] .mermaid svg path:nth-of-type(3) {
+  fill: #06b6d4 !important;
+  /* Cyan for Market Stability */
+}
+
+html[data-theme='dark'] .mermaid svg g:nth-of-type(4) path,
+html[data-theme='dark'] .mermaid svg g:nth-of-type(4) path[d],
+html[data-theme='dark'] .mermaid svg path:nth-of-type(4) {
+  fill: #10b981 !important;
+  /* Emerald for Ecosystem Grants */
+}
+
+/* Additional targeting for D3 Sankey specific elements */
+html[data-theme='dark'] .mermaid svg .link,
+html[data-theme='dark'] .mermaid svg .sankey-link,
+html[data-theme='dark'] .mermaid svg g.links path,
+html[data-theme='dark'] .mermaid svg g[class*="links"] path {
+  fill-opacity: 0.7 !important;
+  stroke: none !important;
+}
+
+/* Fallback: Force all path elements in Sankey diagrams to be visible */
+html[data-theme='dark'] .mermaid[data-processed="true"] svg path {
+  fill-opacity: 0.7 !important;
+  visibility: visible !important;
+}
+
+/* Override any inherited transparent or invisible fills */
+html[data-theme='dark'] .mermaid svg path[fill="transparent"],
+html[data-theme='dark'] .mermaid svg path[fill="none"],
+html[data-theme='dark'] .mermaid svg path[style*="fill:transparent"],
+html[data-theme='dark'] .mermaid svg path[style*="fill:none"] {
+  fill: #64748b !important;
+  fill-opacity: 0.6 !important;
+}
+
+/* Ensure Sankey nodes (rectangles) are visible */
+html[data-theme='dark'] .mermaid svg rect[width] {
+  stroke: #ffffff !important;
+  stroke-width: 1px !important;
+  opacity: 1 !important;
+}
+
+/* Text labels on Sankey nodes */
+html[data-theme='dark'] .mermaid svg text[text-anchor="start"],
+html[data-theme='dark'] .mermaid svg text[text-anchor="end"] {
+  fill: #ffffff !important;
+  font-weight: 600 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+/*
+ ===========================
+   ULTIMATE SANKEY DARK MODE SOLUTION
+   Comprehensive fix for all Sankey diagram visibility issues
+   =========================== */
+
+/* Force visibility for all Sankey flow paths using !important overrides */
+html[data-theme='dark'] .mermaid svg g>path {
+  fill: #64748b !important;
+  fill-opacity: 0.7 !important;
+  stroke: none !important;
+  visibility: visible !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+/* Target paths by their position in the DOM structure */
+html[data-theme='dark'] .mermaid svg g:nth-child(2) path {
+  fill: #f59e0b !important;
+  /* Amber */
+}
+
+html[data-theme='dark'] .mermaid svg g:nth-child(3) path {
+  fill: #ef4444 !important;
+  /* Red */
+}
+
+html[data-theme='dark'] .mermaid svg g:nth-child(4) path {
+  fill: #06b6d4 !important;
+  /* Cyan */
+}
+
+html[data-theme='dark'] .mermaid svg g:nth-child(5) path {
+  fill: #10b981 !important;
+  /* Emerald */
+}
+
+/* Alternative targeting by path index */
+html[data-theme='dark'] .mermaid svg path:nth-child(1) {
+  fill: #f59e0b !important;
+}
+
+html[data-theme='dark'] .mermaid svg path:nth-child(2) {
+  fill: #ef4444 !important;
+}
+
+html[data-theme='dark'] .mermaid svg path:nth-child(3) {
+  fill: #06b6d4 !important;
+}
+
+html[data-theme='dark'] .mermaid svg path:nth-child(4) {
+  fill: #10b981 !important;
+}
+
+/* Catch-all for any remaining invisible paths */
+html[data-theme='dark'] .mermaid svg path[d*="M"] {
+  fill: #64748b !important;
+  fill-opacity: 0.7 !important;
+  visibility: visible !important;
+}
+
+/* Ensure Sankey container has proper background */
+html[data-theme='dark'] .mermaid svg {
+  background: transparent !important;
+}
+
+/* Force all Sankey text to be white with better contrast */
+html[data-theme='dark'] .mermaid svg text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Enhanced node styling for better visibility */
+html[data-theme='dark'] .mermaid svg rect {
+  stroke: #ffffff !important;
+  stroke-width: 1px !important;
+  opacity: 1 !important;
+}
+
+/* Specific overrides for common Sankey path issues */
+html[data-theme='dark'] .mermaid svg g[transform] path,
+html[data-theme='dark'] .mermaid svg g[class] path,
+html[data-theme='dark'] .mermaid svg g[id] path {
+  fill-opacity: 0.7 !important;
+  visibility: visible !important;
+}
+
+/* Final nuclear option: Make ALL paths in Sankey visible */
+html[data-theme='dark'] .mermaid svg * path {
+  fill: #64748b !important;
+  fill-opacity: 0.7 !important;
+  stroke: none !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* =====
+======================
+   ENHANCED FLOWCHART STYLING
+   Professional styling for Treasury & Governance flowchart
+   =========================== */
+
+/* Enhanced flowchart node styling with better visual hierarchy */
+.mermaid .flowchart .node rect {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)) !important;
+  border-radius: 8px !important;
+}
+
+html[data-theme='dark'] .mermaid .flowchart .node rect {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3)) !important;
+}
+
+/* Treasury flowchart specific enhancements */
+.mermaid .flowchart .node text {
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+}
+
+/* Enhanced connection lines for better visibility */
+.mermaid .flowchart .edge path {
+  stroke-width: 2px !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) !important;
+}
+
+html[data-theme='dark'] .mermaid .flowchart .edge path {
+  stroke: #60d394 !important;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3)) !important;
+}
+
+/* Arrow styling for better visual flow */
+.mermaid .flowchart .arrowheadPath {
+  stroke-width: 2px !important;
+}
+
+html[data-theme='dark'] .mermaid .flowchart .arrowheadPath {
+  fill: #60d394 !important;
+  stroke: #60d394 !important;
+}
+
+/* Emoji and icon enhancement for better readability */
+.mermaid .flowchart .node text tspan:first-child {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+/* Hover effects for interactive experience */
+.mermaid .flowchart .node:hover rect {
+  transform: scale(1.02) !important;
+  transition: transform 0.2s ease !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15)) !important;
+}
+
+html[data-theme='dark'] .mermaid .flowchart .node:hover rect {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)) !important;
+}
+
+/* Enhanced spacing and layout */
+.mermaid .flowchart {
+  font-family: var(--ff-base) !important;
+}
+
+/* Professional gradient backgrounds for nodes */
+.mermaid .flowchart .node[class*="treasuryStyle"] rect {
+  background: linear-gradient(135deg, #13493f 0%, #0f3a32 100%) !important;
+}
+
+.mermaid .flowchart .node[class*="primaryStyle"] rect {
+  background: linear-gradient(135deg, #41a290 0%, #359985 100%) !important;
+}
+
+.mermaid .flowchart .node[class*="detailStyle"] rect {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
+}
+
+/* ===========================
+   FOOTER BACKGROUND OVERRIDE
+   Remove dark background in both light and dark modes
+   =========================== */
+
+/* Override footer background - make it transparent */
+.footer,
+.footer--dark,
+.footer .container,
+.footer .container-fluid,
+html[data-theme='dark'] .footer,
+html[data-theme='dark'] .footer--dark,
+html[data-theme='dark'] .footer .container,
+html[data-theme='dark'] .footer .container-fluid {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Ensure footer text is visible on transparent background */
+.footer__copyright,
+html[data-theme='dark'] .footer__copyright {
+  color: var(--text-muted) !important;
+  background: none !important;
+  padding: 1rem 0 !important;
+}
+
+/* Remove any box shadows or borders from footer */
+.footer,
+html[data-theme='dark'] .footer {
+  box-shadow: none !important;
+  border: none !important;
+  border-top: 1px solid var(--border) !important;
+}
